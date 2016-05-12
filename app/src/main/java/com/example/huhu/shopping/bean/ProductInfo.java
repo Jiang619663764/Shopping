@@ -1,9 +1,11 @@
 package com.example.huhu.shopping.bean;
 
+import cn.bmob.v3.BmobObject;
+
 /**
  * Created by Administrator on 2016/5/11.
  */
-public class ProductInfo {
+public class ProductInfo extends BmobObject{
 
     private String name;
     private String intro;

@@ -90,7 +90,7 @@ public class CartAdapter extends BaseAdapter {
         holder.mShoppingImg.setImageResource(R.mipmap.ic_launcher);
         holder.mShoppingName.setText(mShoppingInfo.get(position).getName());
         holder.mShoppingDetail.setText(mShoppingInfo.get(position).getIntro());
-        holder.mShoppingPrice.setText(mShoppingInfo.get(position).getPrice() + "");
+        holder.mShoppingPrice.setText("￥"+mShoppingInfo.get(position).getPrice()*mShoppingInfo.get(position).getCount());
         holder.mShoppingCount.setText(mShoppingInfo.get(position).getCount()+"");
 
         // 设置Tag，用于判断用户当前点击的哪一个列表项的按钮

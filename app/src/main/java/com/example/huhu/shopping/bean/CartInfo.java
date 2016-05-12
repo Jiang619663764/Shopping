@@ -7,8 +7,17 @@ public class CartInfo {
 
     private String name;
     private String intro;
-    private String price;
-    private int count;
+    private float price;
+    private int count=1;
+    private String picture;
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     public String getName() {
         return name;
@@ -26,11 +35,11 @@ public class CartInfo {
         this.intro = intro;
     }
 
-    public String getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.huhu.shopping.bean.CartInfo;
 import com.example.huhu.shopping.bean.ProductInfo;
 
 import java.util.ArrayList;
@@ -26,22 +27,22 @@ public class DBManager {
         mDataBase.beginTransaction();
 
         try{
-            mDataBase.execSQL("INSERT INTO product VALUES(null, ?, ?, ?, ?)", new Object[]{infos.getName(), infos.getPrice(), infos.getIntro(), infos.getPicture()});
+            mDataBase.execSQL("INSERT INTO product VALUES(null, ?, ?, ?, ?)", new Object[]{infos.getName(), Float.parseFloat(infos.getPrice()), infos.getIntro(), infos.getPicture()});
             mDataBase.setTransactionSuccessful();
         }finally {
             mDataBase.endTransaction();
         }
 
     }
-    public List<ProductInfo> query(){
+    public List<CartInfo> query(){
 
-        List<ProductInfo> info=new ArrayList<ProductInfo>();
+        List<CartInfo> info=new ArrayList<CartInfo>();
 
         Cursor c = queryTheCursor();
         while (c.moveToNext()) {
-            ProductInfo person = new ProductInfo();
+            CartInfo person = new CartInfo();
             person.setName(c.getString(c.getColumnIndex("name")));
-            person.setPrice(c.getString(c.getColumnIndex("price")));
+            person.setPrice(c.getFloat(c.getColumnIndex("price")));
             person.setIntro(c.getString(c.getColumnIndex("info")));
             person.setPicture(c.getString(c.getColumnIndex("image")));
             info.add(person);

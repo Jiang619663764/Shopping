@@ -15,9 +15,34 @@
         app:rightButton="@mipmap/ic_launcher"
         app:title="购物车" />
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.example.huhu.shopping.view.CartListView
+        android:id="@+id/cart_frg_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="总计："/>
+        <TextView
+            android:id="@+id/cart_frg_total_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="30sp" />
+        <Button
+            android:id="@+id/cart_frg_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ff0000"
+            android:textColor="#ffffff"
+            android:text="结算"/>
+    </LinearLayout>
 
 </LinearLayout>
