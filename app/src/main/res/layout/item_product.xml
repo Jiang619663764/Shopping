@@ -6,7 +6,7 @@
 
     <ImageView
         android:id="@+id/item_pro_img"
-        android:layout_width="150dp"
+        android:layout_width="120dp"
         android:layout_height="80dp" />
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,21 +17,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:text="商品"/>
         <TextView
             android:id="@+id/item_pro_intro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="3"
             android:layout_below="@+id/item_pro_name"
-            android:textSize="15sp"
             android:text="简介"/>
         <TextView
             android:id="@+id/item_pro_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:textSize="20sp"
             android:text="价格"/>
     </RelativeLayout>
 </LinearLayout>

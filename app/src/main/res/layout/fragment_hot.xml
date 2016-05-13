@@ -15,9 +15,14 @@
         app:rightButton="@mipmap/ic_launcher"
         app:title="分类" />
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <GridView
+        android:id="@+id/hot_frg_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="#f1e2e2"
+        android:horizontalSpacing="10dp"
+        android:columnWidth="100dp"
+        android:verticalSpacing="10dp"
+        android:numColumns="2" />
 
 </LinearLayout>
