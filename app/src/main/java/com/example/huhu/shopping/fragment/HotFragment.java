@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.example.huhu.shopping.R;
 import com.example.huhu.shopping.adapter.HotAdapter;
 import com.example.huhu.shopping.bean.HotInfo;
-import com.example.huhu.shopping.view.KindsActivity;
+import com.example.huhu.shopping.KindsActivity;
 
 import java.util.ArrayList;
 import java.util.List;

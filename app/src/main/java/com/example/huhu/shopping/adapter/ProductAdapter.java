@@ -1,6 +1,7 @@
 package com.example.huhu.shopping.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.huhu.shopping.R;
 import com.example.huhu.shopping.bean.ProductInfo;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
@@ -52,15 +54,16 @@ public class ProductAdapter extends BaseAdapter {
             mHolder.mTxtName= (TextView) convertView.findViewById(R.id.item_pro_name);
             mHolder.mTxtIntro= (TextView) convertView.findViewById(R.id.item_pro_intro);
             mHolder.mTxtPrice= (TextView) convertView.findViewById(R.id.item_pro_price);
-            mHolder.mImgPic= (ImageView) convertView.findViewById(R.id.item_pro_img);
+            mHolder.mImgPic= (SimpleDraweeView) convertView.findViewById(R.id.item_pro_img);
             convertView.setTag(mHolder);
         }else{
             mHolder= (ViewHolder) convertView.getTag();
         }
         mHolder.mTxtName.setText(data.get(position).getName());
         mHolder.mTxtIntro.setText(data.get(position).getIntro());
-        mHolder.mTxtPrice.setText("￥"+data.get(position).getPrice());
-        mHolder.mImgPic.setImageResource(R.mipmap.ic_launcher);
+        mHolder.mTxtPrice.setText("￥" + data.get(position).getPrice());
+        Uri uri=Uri.parse(data.get(position).getPicture());
+        mHolder.mImgPic.setImageURI(uri);
 
         return convertView;
     }
@@ -69,6 +72,6 @@ public class ProductAdapter extends BaseAdapter {
         TextView mTxtName;
         TextView mTxtPrice;
         TextView mTxtIntro;
-        ImageView mImgPic;
+        SimpleDraweeView mImgPic;
     }
 }

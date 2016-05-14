@@ -2,6 +2,8 @@ package com.example.huhu.shopping;
 
 import android.app.Application;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 import cn.bmob.v3.Bmob;
 
 /**
@@ -16,5 +18,7 @@ public class MyApplication extends Application {
         super.onCreate();
         //初始化Bmob的SDK
         Bmob.initialize(getApplicationContext(),BMOB_APP_KEY);
+        //Fresco初始化
+        Fresco.initialize(getApplicationContext());
     }
 }
