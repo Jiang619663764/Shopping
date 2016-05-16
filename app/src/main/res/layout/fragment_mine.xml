@@ -1,10 +1,78 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.huhu.shopping.fragment.MineFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="150dp"
+       android:background="#ff0000">
+       <Button
+           android:id="@+id/frg_mine_login"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerInParent="true"
+           android:text="登录"
+           android:textColor="#fff"
+           android:background="#f98e03"
+           android:visibility="visible"/>
+       <LinearLayout
+           android:id="@+id/frg_mine_linear"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerInParent="true"
+           android:orientation="vertical"
+           android:visibility="gone">
+           <ImageView
+               android:id="@+id/frg_mine_img"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:background="@mipmap/ic_launcher"
+               android:layout_gravity="center"/>
+           <TextView
+               android:id="@+id/frg_mine_name"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:text="mingzi"/>
+       </LinearLayout>
+   </RelativeLayout>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/frg_mine_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#99ff0000"
+        android:drawableLeft="@mipmap/ic_title"
+        android:drawableRight="@mipmap/ic_come"
+        android:gravity="center|left"
+        android:text="我的订单"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/frg_mine_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#99ff0000"
+        android:drawableLeft="@mipmap/ic_title"
+        android:drawableRight="@mipmap/ic_come"
+        android:gravity="center|left"
+        android:text="我的收藏"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/frg_mine_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#99ff0000"
+        android:drawableLeft="@mipmap/ic_title"
+        android:drawableRight="@mipmap/ic_come"
+        android:gravity="center|left"
+        android:text="我的地址"
+        android:textSize="20sp" />
+</LinearLayout>

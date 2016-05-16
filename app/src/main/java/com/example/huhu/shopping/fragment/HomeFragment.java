@@ -24,6 +24,7 @@ import com.example.huhu.shopping.bean.ProductInfo;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -85,6 +86,7 @@ public class HomeFragment extends android.support.v4.app.Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent=new Intent(getActivity(), DetailActivity.class);
                 intent.putExtra("position",position-1);
+                intent.putExtra("data", (Serializable) mDatas);
                 startActivity(intent);
             }
         });

@@ -42,8 +42,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
         Intent intent=getIntent();
         position=intent.getIntExtra("position",0);
-        getDetailData(position);
+        info= (List<ProductInfo>) intent.getSerializableExtra("data");
 
+        getDetailData(position);
 
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +76,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.detail_btn_add:
                 DBManager manager=new DBManager(DetailActivity.this);
-                ProductInfo info=HomeFragment.mDatas.get(position);
-                manager.add(info);
+                ProductInfo proInfo=info.get(position);
+                manager.add(proInfo);
                 Toast.makeText(DetailActivity.this, "添加成功", Toast.LENGTH_LONG).show();
                 break;
             case R.id.detail_btn_buy:
@@ -86,7 +87,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void getDetailData(int position) {
-        info=HomeFragment.mDatas;
         mTxtName.setText("商品："+info.get(position).getName());
         mTxtIntro.setText(""+info.get(position).getIntro());
         mTxtPrice.setText("￥" + info.get(position).getPrice());

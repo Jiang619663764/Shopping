@@ -1,5 +1,7 @@
 package com.example.huhu.shopping;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -78,4 +80,23 @@ public class MainActivity extends AppCompatActivity {
         return  view;
     }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("确定要退出？");
+        alertDialog.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        alertDialog.setPositiveButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDialog.show();
+    }
 }

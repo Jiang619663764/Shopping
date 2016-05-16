@@ -20,6 +20,7 @@ import com.example.huhu.shopping.adapter.ProductAdapter;
 import com.example.huhu.shopping.bean.ProductInfo;
 import com.example.huhu.shopping.view.MyToolBar;
 
+import java.io.Serializable;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -56,6 +57,10 @@ public class KindsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(KindsActivity.this,"点击的选项："+position,Toast.LENGTH_LONG).show();
+                Intent intent=new Intent(KindsActivity.this,DetailActivity.class);
+                intent.putExtra("position",position);
+                intent.putExtra("data", (Serializable) kindsInfo);
+                startActivity(intent);
             }
         });
 
