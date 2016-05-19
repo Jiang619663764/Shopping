@@ -9,4 +9,6 @@
     <string name="title_activity_kinds">KindsActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_address">AddressActivity</string>
+    <string name="title_activity_edit">EditActivity</string>
 </resources>

@@ -13,7 +13,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.huhu.shopping.AddressActivity;
 import com.example.huhu.shopping.LoginActivity;
 import com.example.huhu.shopping.R;
 import com.example.huhu.shopping.bean.UserInfo;
@@ -21,7 +23,7 @@ import com.example.huhu.shopping.bean.UserInfo;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MineFragment extends android.support.v4.app.Fragment implements View.OnClickListener{
+public class MineFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -36,7 +38,7 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
 
     private UserInfo userInfo;
 
-    private static final int REQUEST_CODE=1;
+    private static final int REQUEST_CODE = 1;
 
     public MineFragment() {
         // Required empty public constructor
@@ -46,33 +48,33 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_mine, container, false);
+        View view = inflater.inflate(R.layout.fragment_mine, container, false);
         initView(view);
         checkIsLogin();
-         return view;
+        return view;
     }
 
     private void checkIsLogin() {
-        sharedPreferences=getActivity().getSharedPreferences("loginInfo",Context.MODE_PRIVATE);
-        boolean isLogin=sharedPreferences.getBoolean("login",false);
-        if(isLogin){
+        sharedPreferences = getActivity().getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
+        boolean isLogin = sharedPreferences.getBoolean("login", false);
+        if (isLogin) {
             mLayout.setVisibility(View.VISIBLE);
             mBtnLogin.setVisibility(View.GONE);
-            mUserName.setText(sharedPreferences.getString("name",""));
-        }else{
+            mUserName.setText(sharedPreferences.getString("name", ""));
+        } else {
             mLayout.setVisibility(View.GONE);
             mBtnLogin.setVisibility(View.VISIBLE);
         }
     }
 
     private void initView(View view) {
-        mLayout= (LinearLayout) view.findViewById(R.id.frg_mine_linear);
-        mPicture= (ImageView) view.findViewById(R.id.frg_mine_img);
-        mUserName= (TextView) view.findViewById(R.id.frg_mine_name);
-        mBtnLogin= (Button) view.findViewById(R.id.frg_mine_login);
-        mBtnOrder= (Button) view.findViewById(R.id.frg_mine_order);
-        mBtnSave= (Button) view.findViewById(R.id.frg_mine_save);
-        mBtnAddress= (Button) view.findViewById(R.id.frg_mine_address);
+        mLayout = (LinearLayout) view.findViewById(R.id.frg_mine_linear);
+        mPicture = (ImageView) view.findViewById(R.id.frg_mine_img);
+        mUserName = (TextView) view.findViewById(R.id.frg_mine_name);
+        mBtnLogin = (Button) view.findViewById(R.id.frg_mine_login);
+        mBtnOrder = (Button) view.findViewById(R.id.frg_mine_order);
+        mBtnSave = (Button) view.findViewById(R.id.frg_mine_save);
+        mBtnAddress = (Button) view.findViewById(R.id.frg_mine_address);
         mBtnLogin.setOnClickListener(this);
         mBtnOrder.setOnClickListener(this);
         mBtnSave.setOnClickListener(this);
@@ -82,38 +84,55 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.frg_mine_login:
-                Intent intent=new Intent(getActivity(), LoginActivity.class);
-                startActivityForResult(intent,REQUEST_CODE);
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
                 break;
             case R.id.frg_mine_order:
+                sharedPreferences = getActivity().getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
+                boolean isLogin02 = sharedPreferences.getBoolean("login", false);
+                if(isLogin02){
+                    Intent intent02=new Intent(getActivity(),null);
+                    startActivity(intent02);
+                }else{
+                    Toast.makeText(getActivity(),"请先登录",Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.frg_mine_save:
                 break;
             case R.id.frg_mine_address:
+                sharedPreferences = getActivity().getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
+                boolean isLogin04 = sharedPreferences.getBoolean("login", false);
+                if(isLogin04){
+                    Intent intent04=new Intent(getActivity(), AddressActivity.class);
+                    startActivity(intent04);
+                }else {
+                    Toast.makeText(getActivity(),"请先登录",Toast.LENGTH_LONG).show();
+                }
+
                 break;
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==REQUEST_CODE&&resultCode==20){
+        if (requestCode == REQUEST_CODE && resultCode == 20) {
             mLayout.setVisibility(View.VISIBLE);
             mBtnLogin.setVisibility(View.GONE);
-            Bundle bundle=data.getBundleExtra("userInfo");
-            userInfo= (UserInfo) bundle.get("mUserInfo");
+            Bundle bundle = data.getBundleExtra("userInfo");
+            userInfo = (UserInfo) bundle.get("mUserInfo");
             mUserName.setText(userInfo.getName());
-            saveLoginInfo(getActivity(),true);
+            saveLoginInfo(getActivity(), true);
         }
     }
 
-    private void saveLoginInfo(Context context,Boolean isLogin){
-        sharedPreferences=context.getSharedPreferences("loginInfo",Context.MODE_PRIVATE);
-        editor=sharedPreferences.edit();
-        editor.putBoolean("login",isLogin);
+    private void saveLoginInfo(Context context, Boolean isLogin) {
+        sharedPreferences = context.getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putBoolean("login", isLogin);
         editor.putString("name", userInfo.getName());
-        editor.putString("phone",userInfo.getPhone());
+        editor.putString("phone", userInfo.getPhone());
         editor.commit();
     }
 }

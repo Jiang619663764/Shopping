@@ -4,6 +4,7 @@ package com.example.huhu.shopping.fragment;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,6 +104,7 @@ public class CartFragment extends android.support.v4.app.Fragment implements Vie
             case R.id.btn_sub_shopping_item:
                 if (tag != null && tag instanceof Integer) {
                     int position = (Integer) tag;
+                    Log.e("CartFragment","--------"+position);
                     int num = mList.get(position).getCount();
                     float price=mList.get(position).getPrice();
                     if (num > 1) {
@@ -114,8 +116,10 @@ public class CartFragment extends android.support.v4.app.Fragment implements Vie
                 }
                 break;
             case R.id.delete_shopping_item:
+                DBManager db=new DBManager(getActivity());
                 if (tag != null && tag instanceof Integer) {
                     int position = (Integer) tag;
+                    db.delete(mList.get(position).getIntro());
                     mList.remove(position);
                     mCartAdapter.notifyDataSetChanged();
                     mListView.turnToNormal();

@@ -81,11 +81,11 @@ public class HomeFragment extends android.support.v4.app.Fragment {
             }
         };
         //子选项点击事件
-        mRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent=new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra("position",position-1);
+                intent.putExtra("position",position-2);
                 intent.putExtra("data", (Serializable) mDatas);
                 startActivity(intent);
             }
