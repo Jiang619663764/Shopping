@@ -1,6 +1,9 @@
 package com.example.huhu.shopping.fragment;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -11,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.huhu.shopping.OrderActivity;
 import com.example.huhu.shopping.R;
 import com.example.huhu.shopping.adapter.CartAdapter;
 import com.example.huhu.shopping.bean.CartInfo;
@@ -31,13 +36,17 @@ public class CartFragment extends android.support.v4.app.Fragment implements Vie
 
     private TextView mTotalPrice;
     private Button mBtnPay;
+    private float sum;
+
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     //创建观察者
     private DataSetObserver sumObserver=new DataSetObserver() {
         @Override
         public void onChanged() {
             super.onChanged();
-            float sum=0;
+            sum=0;
             for (int i=0;i<mList.size();i++){
                 sum+=mList.get(i).getPrice()*mList.get(i).getCount();
 
@@ -126,6 +135,22 @@ public class CartFragment extends android.support.v4.app.Fragment implements Vie
                 }
                 break;
             case R.id.cart_frg_pay:
+                sharedPreferences = getActivity().getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
+                boolean isLogin = sharedPreferences.getBoolean("login", false);
+                if(isLogin){
+                    if(mList.size()>0){
+                        DBManager db01=new DBManager(getActivity());
+                        db01.update(mList);
+                        Intent intent=new Intent(getActivity(), OrderActivity.class);
+                        intent.putExtra("price",sum);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getActivity(), "请添加物品", Toast.LENGTH_LONG).show();
+                    }
+
+                }else{
+                    Toast.makeText(getActivity(), "请先登录", Toast.LENGTH_LONG).show();
+                }
 
                 break;
         }

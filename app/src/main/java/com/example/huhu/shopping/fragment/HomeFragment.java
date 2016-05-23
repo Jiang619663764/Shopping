@@ -25,6 +25,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -39,11 +40,15 @@ public class HomeFragment extends android.support.v4.app.Fragment {
 
     private PullToRefreshListView mRefreshListView;
 
-    public static List<ProductInfo> mDatas;
+    public List<ProductInfo> mDatas;
 
     private ProductAdapter mProductAdapter;
 
     private Handler mHandler;
+
+    private String[] title = {"热卖", "打折", "进口", "稀有", "新品", "时尚"};
+    private String[] content = {"最畅销的商品尽在这里", "跳楼大甩卖", "国际名牌竟在掌握",
+            "物以稀为贵", "横看成岭侧成峰", "低调引领时尚潮流"};
 
     public HomeFragment() {
 
@@ -52,15 +57,16 @@ public class HomeFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         getInfo(getActivity());
-        View view=inflater.inflate(R.layout.fragment_home, container, false);
+//        addSpecialPro();
+        View layout = LayoutInflater.from(getActivity()).inflate(R.layout.layout_banner, null);
 
-        View layout= LayoutInflater.from(getActivity()).inflate(R.layout.layout_banner, null);
-
-        mRefreshListView= (PullToRefreshListView) view.findViewById(R.id.refresh_home_frg);
+        mRefreshListView = (PullToRefreshListView) view.findViewById(R.id.refresh_home_frg);
         ListView listView = mRefreshListView.getRefreshableView();
         //轮播图的设定
-        mSliderLayout= (SliderLayout) layout.findViewById(R.id.slider);
+        mSliderLayout = (SliderLayout) layout.findViewById(R.id.slider);
         addBanner();
         mSliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mSliderLayout.setCustomAnimation(new DescriptionAnimation());
@@ -84,8 +90,8 @@ public class HomeFragment extends android.support.v4.app.Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra("position",position-2);
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("position", position - 2);
                 intent.putExtra("data", (Serializable) mDatas);
                 startActivity(intent);
             }
@@ -100,39 +106,39 @@ public class HomeFragment extends android.support.v4.app.Fragment {
         return view;
     }
 
-    private void addBanner(){
-        TextSliderView tsv=new TextSliderView(getActivity());
+    private void addBanner() {
+        TextSliderView tsv = new TextSliderView(getActivity());
         tsv.image(R.mipmap.banner1);
         tsv.description("一分钱就能抢");
         mSliderLayout.addSlider(tsv);
-        TextSliderView tsv1=new TextSliderView(getActivity());
+        TextSliderView tsv1 = new TextSliderView(getActivity());
         tsv1.image(R.mipmap.banner2);
         tsv1.description("吃货的季节");
         mSliderLayout.addSlider(tsv1);
-        TextSliderView tsv2=new TextSliderView(getActivity());
+        TextSliderView tsv2 = new TextSliderView(getActivity());
         tsv2.image(R.mipmap.banner3);
         tsv2.description("好吃来不停");
         mSliderLayout.addSlider(tsv2);
     }
 
     /**
-     *
+     * 从BMOB获取数据
      * @param context
      * @return
      */
-    private void getInfo(final Context context){
+    private void getInfo(final Context context) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                BmobQuery<ProductInfo> query=new BmobQuery<ProductInfo>();
+                BmobQuery<ProductInfo> query = new BmobQuery<ProductInfo>();
                 query.findObjects(context, new FindListener<ProductInfo>() {
                     @Override
                     public void onSuccess(List<ProductInfo> list) {
-                        Message msg=new Message();
-                        msg.obj=list;
+                        Message msg = new Message();
+                        msg.obj = list;
                         mHandler.sendMessage(msg);
-                        Log.e("Fragment","------------------------"+list.size());
+                        Log.e("Fragment", "------------------------" + list.size());
                     }
 
                     @Override

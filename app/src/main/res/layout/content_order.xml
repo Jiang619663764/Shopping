@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <com.example.huhu.shopping.view.MyToolBar
-        android:id="@+id/pay_toolbar"
+        android:id="@+id/order_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -17,79 +18,81 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pay_toolbar">
+        android:layout_below="@+id/order_toolbar">
 
         <TextView
-            android:id="@+id/pay_name"
+            android:id="@+id/order_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="蒋鹏"
+            android:text="请添加地址"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/pay_phone"
+            android:id="@+id/order_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="18700899068"
             android:textSize="20sp" />
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/pay_detail"
+        android:id="@+id/order_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:lines="2"
         android:maxLines="2"
-        android:text="浙江省阿斯达卡岁的卢卡斯利空打击阿斯利康的就sadasdasda"
         android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/pay_info"
+            android:id="@+id/order_info"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:scrollbars="vertical"
             android:textSize="24sp"
-            android:maxLines="4"
-            android:lines="4"
             android:text="商品明细"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ccc"/>
         <TextView
-            android:id="@+id/pay_price"
+            android:id="@+id/order_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:textSize="24sp"
             android:text="总价"/>
     </LinearLayout>
     <RadioGroup
-        android:id="@+id/pay_group"
+        android:id="@+id/order_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp">
 
         <RadioButton
-            android:id="@+id/pay_online"
+            android:id="@+id/order_online"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="在线支付" />
 
         <RadioButton
-            android:id="@+id/pay_outline"
+            android:id="@+id/order_outline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="货到付款" />
     </RadioGroup>
     <Button
-        android:id="@+id/pay_commit"
+        android:id="@+id/order_commit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

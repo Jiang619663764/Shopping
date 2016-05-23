@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -18,7 +19,7 @@ import com.example.huhu.shopping.db.DBManager;
 import java.io.Serializable;
 import java.util.List;
 
-public class AddressActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddressActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private List<AddressInfo> mInfo;
     private ListView mListView;
@@ -33,9 +34,12 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
         mListView = (ListView) findViewById(R.id.address_list);
         mBtnAdd = (Button) findViewById(R.id.address_add);
         mAdapter = new AddressAdapter(AddressActivity.this, mInfo);
-        mAdapter.setOnDeleteListener(this);
-//        mAdapter.setOnEditListener(this);
+
         mListView.setAdapter(mAdapter);
+        mAdapter.setOnDeleteListener(this);
+//       mAdapter.setOnEditListener(this);
+        mListView.setOnItemClickListener(this);
+
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +54,8 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
         super.onResume();
         initData();
         mAdapter = new AddressAdapter(AddressActivity.this, mInfo);
-        mAdapter.notifyDataSetChanged();
+        mListView.setAdapter(mAdapter);
+        mAdapter.setOnDeleteListener(this);
     }
 
     private void initData() {
@@ -73,8 +78,8 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
                     startActivity(intent);
                 }
                 break;
-            case R.id.item_address_delete:
-                AlertDialog.Builder builder=new AlertDialog.Builder(AddressActivity.this);
+            case R.id.item_address_delete01:
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddressActivity.this);
                 builder.setTitle("确定删除此地址");
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
@@ -93,5 +98,10 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
 
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 }

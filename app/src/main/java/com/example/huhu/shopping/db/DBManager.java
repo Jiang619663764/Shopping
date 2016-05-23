@@ -1,5 +1,6 @@
 package com.example.huhu.shopping.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -32,7 +33,7 @@ public class DBManager {
         mDataBase.beginTransaction();
 
         try{
-            mDataBase.execSQL("INSERT INTO product VALUES(null, ?, ?, ?, ?)", new Object[]{infos.getName(), Float.parseFloat(infos.getPrice()), infos.getIntro(), infos.getPicture()});
+            mDataBase.execSQL("INSERT INTO product VALUES(null, ?, ?, ?, ?, ?)", new Object[]{infos.getName(), Float.parseFloat(infos.getPrice()), infos.getIntro(), infos.getPicture(),1});
             mDataBase.setTransactionSuccessful();
         }finally {
             mDataBase.endTransaction();
@@ -67,6 +68,7 @@ public class DBManager {
             person.setPrice(c.getFloat(c.getColumnIndex("price")));
             person.setIntro(c.getString(c.getColumnIndex("info")));
             person.setPicture(c.getString(c.getColumnIndex("image")));
+            person.setCount(c.getInt(c.getColumnIndex("count")));
             info.add(person);
         }
         c.close();
@@ -147,5 +149,13 @@ public class DBManager {
         }
         cursor.close();
         return i;
+    }
+
+    public void update(List<CartInfo> info){
+        for (CartInfo data:info){
+            ContentValues values=new ContentValues();
+            values.put("count",data.getCount());
+            mDataBase.update("product",values,"info=?",new String[]{data.getIntro()});
+        }
     }
 }

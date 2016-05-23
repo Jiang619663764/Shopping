@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Shopping</string>
+    <string name="app_name">微店</string>
     <string name="action_settings">Settings</string>
 
 <!-- TODO: Remove or change this placeholder text -->
@@ -11,4 +11,5 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_address">AddressActivity</string>
     <string name="title_activity_edit">EditActivity</string>
+    <string name="title_activity_order">OrderActivity</string>
 </resources>

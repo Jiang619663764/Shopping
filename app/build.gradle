@@ -46,4 +46,6 @@ dependencies {
 
     compile name: 'SMSSDK-2.0.2', ext: 'aar'
     compile name: 'SMSSDKGUI-2.0.2', ext: 'aar'
+    //三级联动省市区
+    compile 'com.bigkoo:pickerview:2.0.8'
 }

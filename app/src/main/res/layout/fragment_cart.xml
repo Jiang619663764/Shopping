@@ -18,6 +18,8 @@
     <com.example.huhu.shopping.view.CartListView
         android:id="@+id/cart_frg_listview"
         android:layout_width="match_parent"
+        android:divider="#ccc"
+        android:dividerHeight="1px"
         android:layout_height="0dp"
         android:layout_weight="1"/>
     <LinearLayout

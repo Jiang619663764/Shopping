@@ -20,12 +20,14 @@
             app:rightButton="@mipmap/icon_menu"
             app:isShowing="false"
             app:title="详情" />
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/detail_img"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_below="@+id/toolbar"
-            android:background="@mipmap/ic_launcher"/>
+            android:layout_centerHorizontal="true"
+            app:placeholderImage="@mipmap/ic_launcher"
+            app:failureImage="@mipmap/ic_launcher"/>
         <TextView
             android:id="@+id/detail_txt_name"
             android:layout_width="wrap_content"

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
@@ -68,8 +69,8 @@ public class AddressAdapter extends BaseAdapter {
             holder.address = (TextView) convertView.findViewById(R.id.item_address_detail);
             holder.check = (RadioButton) convertView.findViewById(R.id.item_address_check);
 
-            holder.delete= (TextView) convertView.findViewById(R.id.item_address_delete);
-            holder.delete.setOnClickListener(onDeleteListener);
+            holder.delete= (TextView) convertView.findViewById(R.id.item_address_delete01);
+
             holder.edit= (TextView) convertView.findViewById(R.id.item_address_edit);
             holder.edit.setOnClickListener(onEditListener);
 
@@ -80,6 +81,7 @@ public class AddressAdapter extends BaseAdapter {
         holder.name.setText(mInfo.get(position).getName());
         holder.phone.setText(mInfo.get(position).getPhone());
         holder.address.setText(mInfo.get(position).getAddress());
+        holder.delete.setOnClickListener(onDeleteListener);
         holder.delete.setTag(position);
         holder.edit.setTag(position);
         holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

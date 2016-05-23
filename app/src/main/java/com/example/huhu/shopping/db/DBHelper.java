@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS product" +
-                "(_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price FLOAT, info TEXT,image TEXT)");
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price FLOAT, info TEXT,image TEXT,count INTEGER)");
         db.execSQL("CREATE TABLE IF NOT EXISTS address" +
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, phone TEXT, detail TEXT,isDefault INTEGER)");
     }

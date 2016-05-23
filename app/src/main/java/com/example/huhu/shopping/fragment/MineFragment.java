@@ -1,7 +1,9 @@
 package com.example.huhu.shopping.fragment;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import com.example.huhu.shopping.LoginActivity;
 import com.example.huhu.shopping.R;
 import com.example.huhu.shopping.bean.UserInfo;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -35,6 +39,7 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
     private Button mBtnOrder;
     private Button mBtnSave;
     private Button mBtnAddress;
+    private Button mBtnBack;
 
     private UserInfo userInfo;
 
@@ -60,10 +65,12 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
         if (isLogin) {
             mLayout.setVisibility(View.VISIBLE);
             mBtnLogin.setVisibility(View.GONE);
+            mBtnBack.setVisibility(View.VISIBLE);
             mUserName.setText(sharedPreferences.getString("name", ""));
         } else {
             mLayout.setVisibility(View.GONE);
             mBtnLogin.setVisibility(View.VISIBLE);
+            mBtnBack.setVisibility(View.GONE);
         }
     }
 
@@ -75,10 +82,12 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
         mBtnOrder = (Button) view.findViewById(R.id.frg_mine_order);
         mBtnSave = (Button) view.findViewById(R.id.frg_mine_save);
         mBtnAddress = (Button) view.findViewById(R.id.frg_mine_address);
+        mBtnBack= (Button) view.findViewById(R.id.frg_mine_back);
         mBtnLogin.setOnClickListener(this);
         mBtnOrder.setOnClickListener(this);
         mBtnSave.setOnClickListener(this);
         mBtnAddress.setOnClickListener(this);
+        mBtnBack.setOnClickListener(this);
     }
 
 
@@ -93,8 +102,7 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
                 sharedPreferences = getActivity().getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
                 boolean isLogin02 = sharedPreferences.getBoolean("login", false);
                 if(isLogin02){
-                    Intent intent02=new Intent(getActivity(),null);
-                    startActivity(intent02);
+
                 }else{
                     Toast.makeText(getActivity(),"请先登录",Toast.LENGTH_LONG).show();
                 }
@@ -110,7 +118,29 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
                 }else {
                     Toast.makeText(getActivity(),"请先登录",Toast.LENGTH_LONG).show();
                 }
+                break;
+            case R.id.frg_mine_back:
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setTitle("确定退出登录？");
+                alertDialog.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        sharedPreferences = getActivity().getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
+                        editor = sharedPreferences.edit();
+                        editor.putBoolean("login", false);
+                        editor.commit();
+                        mLayout.setVisibility(View.GONE);
+                        mBtnLogin.setVisibility(View.VISIBLE);
+                        mBtnBack.setVisibility(View.GONE);
+                    }
+                });
+                alertDialog.setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
+                    }
+                });
+                alertDialog.show();
                 break;
         }
     }
@@ -135,4 +165,6 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
         editor.putString("phone", userInfo.getPhone());
         editor.commit();
     }
+
+
 }

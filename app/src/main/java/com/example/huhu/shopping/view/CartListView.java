@@ -92,14 +92,19 @@ public class CartListView extends ListView {
         mDownY = (int) ev.getY();
         //获取当前点的item
         mPointChild = (ViewGroup) getChildAt(pointToPosition(mDownX, mDownY) - getFirstVisiblePosition());
-        //获取删除按钮的宽度
-        mDeleteBtnWidth = mPointChild.getChildAt(1).getLayoutParams().width;
-        mLayoutParams = (LinearLayout.LayoutParams) mPointChild.getChildAt(0).getLayoutParams();
-        // 为什么要重新设置layout_width 等于屏幕宽度
-        // 因为match_parent时，不管你怎么滑，都不会显示删除按钮
-        // why？ 因为match_parent时，ViewGroup就不去布局剩下的view
-        mLayoutParams.width = mScreenWidth;
-        mPointChild.getChildAt(0).setLayoutParams(mLayoutParams);
+        if (mPointChild == null) {
+            return;
+        } else {
+            //获取删除按钮的宽度
+            mDeleteBtnWidth = mPointChild.getChildAt(1).getLayoutParams().width;
+            mLayoutParams = (LinearLayout.LayoutParams) mPointChild.getChildAt(0).getLayoutParams();
+            // 为什么要重新设置layout_width 等于屏幕宽度
+            // 因为match_parent时，不管你怎么滑，都不会显示删除按钮
+            // why？ 因为match_parent时，ViewGroup就不去布局剩下的view
+            mLayoutParams.width = mScreenWidth;
+            mPointChild.getChildAt(0).setLayoutParams(mLayoutParams);
+        }
+
     }
 
     /**
@@ -110,22 +115,26 @@ public class CartListView extends ListView {
      */
     private boolean performActionMove(MotionEvent ev) {
 
-        int nowX = (int) ev.getX();
-        int nowY = (int) ev.getY();
-        if (Math.abs(nowX - mDownX) > Math.abs(nowY - mDownY)) {
-            //如果向左滑动
-            if (nowX < mDownX) {
-                //计算要偏移的距离
-                int scroll = (nowX - mDownX) / 2;
-                //如果大于删除按钮的宽度，则设置为删除按钮的宽
-                if (-scroll > mDeleteBtnWidth) {
-                    scroll = -mDeleteBtnWidth;
+        if(mPointChild==null){
+           return super.onTouchEvent(ev);
+        }else{
+            int nowX = (int) ev.getX();
+            int nowY = (int) ev.getY();
+            if (Math.abs(nowX - mDownX) > Math.abs(nowY - mDownY)) {
+                //如果向左滑动
+                if (nowX < mDownX) {
+                    //计算要偏移的距离
+                    int scroll = (nowX - mDownX) / 2;
+                    //如果大于删除按钮的宽度，则设置为删除按钮的宽
+                    if (-scroll > mDeleteBtnWidth) {
+                        scroll = -mDeleteBtnWidth;
+                    }
+                    //重新设置leftMargin
+                    mLayoutParams.leftMargin = scroll;
+                    mPointChild.getChildAt(0).setLayoutParams(mLayoutParams);
                 }
-                //重新设置leftMargin
-                mLayoutParams.leftMargin = scroll;
-                mPointChild.getChildAt(0).setLayoutParams(mLayoutParams);
+                return true;
             }
-            return true;
         }
         return super.onTouchEvent(ev);
     }
@@ -137,14 +146,18 @@ public class CartListView extends ListView {
      */
     private void performActionUp(MotionEvent ev) {
 
-        //偏移量大于button的一半时，显示button，否则恢复默认
-        if (-mLayoutParams.leftMargin > mDeleteBtnWidth / 2) {
-            mLayoutParams.leftMargin = -mDeleteBtnWidth;
-            isBtnShowing = true;
-        } else {
-            turnToNormal();
-        }
-        mPointChild.getChildAt(0).setLayoutParams(mLayoutParams);
+       if(mPointChild==null){
+           return;
+       }else {
+           //偏移量大于button的一半时，显示button，否则恢复默认
+           if (-mLayoutParams.leftMargin > mDeleteBtnWidth / 2) {
+               mLayoutParams.leftMargin = -mDeleteBtnWidth;
+               isBtnShowing = true;
+           } else {
+               turnToNormal();
+           }
+           mPointChild.getChildAt(0).setLayoutParams(mLayoutParams);
+       }
     }
 
     /**

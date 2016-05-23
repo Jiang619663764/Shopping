@@ -1,6 +1,7 @@
 package com.example.huhu.shopping.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.example.huhu.shopping.R;
 import com.example.huhu.shopping.bean.CartInfo;
 import com.example.huhu.shopping.bean.ProductInfo;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
@@ -71,7 +73,7 @@ public class CartAdapter extends BaseAdapter {
         ViewHolder holder = (ViewHolder) v.getTag();
         if (holder == null) {
             holder = new ViewHolder();
-            holder.mShoppingImg = (ImageView) v.findViewById(R.id.iv_shopping_item);
+            holder.mShoppingImg = (SimpleDraweeView) v.findViewById(R.id.iv_shopping_item);
             holder.mShoppingName = (TextView) v.findViewById(R.id.txt_name_shopping_item);
             holder.mShoppingDetail = (TextView) v.findViewById(R.id.txt_detail_shopping_item);
             holder.mShoppingPrice = (TextView) v.findViewById(R.id.txt_prive_shopping_item);
@@ -87,7 +89,8 @@ public class CartAdapter extends BaseAdapter {
             holder.mShoppingDelete= (TextView) v.findViewById(R.id.delete_shopping_item);
             holder.mShoppingDelete.setOnClickListener(onDeleteList);
         }
-        holder.mShoppingImg.setImageResource(R.mipmap.ic_launcher);
+        Uri uri=Uri.parse(mShoppingInfo.get(position).getPicture());
+        holder.mShoppingImg.setImageURI(uri);
         holder.mShoppingName.setText(mShoppingInfo.get(position).getName());
         holder.mShoppingDetail.setText(mShoppingInfo.get(position).getIntro());
         holder.mShoppingPrice.setText("￥"+mShoppingInfo.get(position).getPrice()*mShoppingInfo.get(position).getCount());
@@ -105,7 +108,7 @@ public class CartAdapter extends BaseAdapter {
 
     private class ViewHolder {
 
-        private ImageView mShoppingImg;
+        private SimpleDraweeView mShoppingImg;
         private TextView mShoppingName;
         private TextView mShoppingDetail;
         private TextView mShoppingPrice;

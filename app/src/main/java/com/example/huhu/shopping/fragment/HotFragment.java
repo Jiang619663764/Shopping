@@ -15,6 +15,7 @@ import com.example.huhu.shopping.R;
 import com.example.huhu.shopping.adapter.HotAdapter;
 import com.example.huhu.shopping.bean.HotInfo;
 import com.example.huhu.shopping.KindsActivity;
+import com.example.huhu.shopping.db.DBManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,15 +40,16 @@ public class HotFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getData();
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_hot, container, false);
+        getData();
         mGridView= (GridView) view.findViewById(R.id.hot_frg_grid);
         mHotAdapter=new HotAdapter(getActivity(),mData);
         mGridView.setAdapter(mHotAdapter);
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Toast.makeText(getActivity(),"点击的选项："+position,Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(getActivity(), KindsActivity.class);
                 intent.putExtra("type",hotName[position]);
